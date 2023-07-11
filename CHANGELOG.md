@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Implement the auto capitalization. [(#56)](https://github.com/pythonbrad/clafrica/pull/56)
+- Allow user specified characters.
 
 ### Fixed
-- Allowed whitespaces usage. [(#63)](https://github.com/pythonbrad/clafrica/pull/63)
 - Improve the pause/resume way via double pressing of CTRL key. [(#54)](https://github.com/pythonbrad/clafrica/pull/54)
 - Drop function key F1-12 which was reserved for special purposes. [(#62)](https://github.com/pythonbrad/clafrica/pull/62)
 

@@ -12,6 +12,7 @@ pub struct Config {
 pub struct CoreConfig {
     pub buffer_size: usize,
     pub auto_capitalize: bool,
+    pub allow_chars: Option<Vec<char>>,
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -116,6 +117,7 @@ mod tests {
 
         let conf = Config::from_file(Path::new("./data/config_sample.toml")).unwrap();
         assert_eq!(conf.core.clone().unwrap().buffer_size, 12);
+        assert_eq!(conf.core.clone().unwrap().allow_chars, None);
         assert!(!conf.core.clone().unwrap().auto_capitalize);
 
         let data = conf.extract_data();

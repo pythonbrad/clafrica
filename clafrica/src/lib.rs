@@ -19,7 +19,10 @@ pub fn run(config: config::Config, mut frontend: impl Frontend) -> Result<(), io
             .map(|(k, v)| [k.as_str(), v.as_str()])
             .collect(),
     );
-    let mut cursor = text_buffer::Cursor::new(map, config.core.map(|e| e.buffer_size).unwrap_or(8));
+
+    let mut cursor = text_buffer::Cursor::new(map, config.core.as_ref().map(|e| e.buffer_size).unwrap_or(8));
+
+    let allowed_chars = config.core.map(|e| e.allow_chars.unwrap_or_default()).unwrap_or_default();
 
     let mut keyboard = Enigo::new();
 
@@ -61,7 +64,8 @@ pub fn run(config: config::Config, mut frontend: impl Frontend) -> Result<(), io
     for event in rx.iter() {
         let character = event.name.and_then(|s| s.chars().next());
         let is_valid = character
-            .map(|c| c.is_alphanumeric() || c.is_ascii_punctuation() || c.is_whitespace())
+            .as_ref()
+            .map(|c| c.is_alphanumeric() || c.is_ascii_punctuation() || allowed_chars.contains(c))
             .unwrap_or(false);
 
         match event.event_type {
